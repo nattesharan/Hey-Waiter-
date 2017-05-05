@@ -1,4 +1,4 @@
-class user:
+class User:
     def __init__(self, email):
         self.email = email
     def get_id(self):
