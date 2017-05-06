@@ -14,7 +14,6 @@ def home():
 @login_required
 def account():
     return 'You are logged in'
-@app.route('/login', methods = ['POST'])
 @app.route("/login", methods=["POST"])
 def login():
     email = request.form.get("email")
@@ -22,7 +21,6 @@ def login():
     user_password = DB.get_user(email)
     if user_password and user_password == password:
         user = User(email)
-        login_user(user)
         return redirect(url_for('account'))
     return home()
 @login_manager.user_loader
