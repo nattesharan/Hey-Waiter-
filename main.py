@@ -1,6 +1,6 @@
 from flask import Flask,render_template,redirect,url_for,request
 from flask_login import LoginManager,login_required
-from flask_login import login_user
+from flask_login import login_user,logout_user
 from mockdbhelper import MockDBHelper as DBhelper
 from user import User
 DB = DBhelper()
@@ -29,5 +29,9 @@ def loaduser(user_id):
     user_password = DB.get_user(user_id)
     if user_password:
         return User(user_id)
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 if __name__ == '__main__':
     app.run(port=int('3000'),debug=True)
