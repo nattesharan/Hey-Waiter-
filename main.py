@@ -69,5 +69,9 @@ def del_table():
     tableid = request.args.get('tableid')
     DB.delete_table(tableid)
     return redirect(url_for('account'))
+@app.route("/newrequest/<tid>")
+def new_request(tid):
+    DB.add_request(tid, datetime.datetime.now())
+    return "Your request has been logged and a waiter will be with you shortly"
 if __name__ == '__main__':
     app.run(port=int('3000'),debug=True)
