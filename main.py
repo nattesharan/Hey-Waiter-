@@ -15,7 +15,7 @@ def home():
 @app.route('/account')
 @login_required
 def account():
-    return 'You are logged in'
+    return render_template('account.html')
 @app.route("/login", methods=["POST"])
 def login():
     email = request.form.get("email")
@@ -48,5 +48,8 @@ def register():
     hashed = ph.get_hash(passwd + salt)
     DB.add_user(email,salt,hashed)
     return redirect(url_for('home'))
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 if __name__ == '__main__':
     app.run(port=int('3000'),debug=True)
