@@ -21,6 +21,7 @@ def login():
     user_password = DB.get_user(email)
     if user_password and user_password == password:
         user = User(email)
+        login_user(user)
         return redirect(url_for('account'))
     return home()
 @login_manager.user_loader
