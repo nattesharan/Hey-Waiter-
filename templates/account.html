@@ -17,19 +17,27 @@
                 </tr>
                 {% for table in tables %}
                 <form class="form-inline" action="/account/deletetable">
-                <tr>
-                    <td>{{table.number}}</td>
-                    <td><a href="{{ table.url }}" target="_blank">{{table.url}}</a></td>
-                    <td><input type="submit" value="DELETE" class="form-control"></td>
-                    <input type="text" name="tableid" value="{{table._id}}" hidden>
-                </tr>
+                    <tr>
+                        <td>{{table.number}}</td>
+                        <td><a href="{{ table.url }}" target="_blank">{{table.url}}</a></td>
+                        <td><input type="submit" value="DELETE" class="form-control"></td>
+                        <input type="text" name="tableid" value="{{table._id}}" hidden>
+                    </tr>
                 </form>
                 {% endfor %}
             </table>
             <h2>Add New Table</h2>
-            <form class="form-inline" action="/account/createtable" method="post">
-            <input class="form-control" type="text" name="tablenumber" placeholder="Table Number or Name">
-            <input type="submit" value="Create" class="btn btn-primary">
+            <form class="form-inline" action="/account/createtable" method="POST">
+                <div class="form-group">
+                    {% if createtableform.tablenumber.errors %}
+                    <ul class="errors">
+                        {% for error in createtableform.tablenumber.errors %}
+                        <li>{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} {{ createtableform.csrf_token}} {{ createtableform.tablenumber(class="form-control", placeholder="Table number
+                    or name")}} {{ createtableform.submit(value="Create", class="btn btn-primary") }}
+                </div>
             </form>
         </div>
     </div>
