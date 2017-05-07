@@ -4,13 +4,11 @@ from flask_login import login_user,logout_user,current_user
 from dbhelper import DBHelper as DBhelper
 from user import User
 from passwordhelper import passHelper
-from bitlyhelper import BitlyHelper
 import datetime
 import config
 from forms import RegistrationForm,LoginForm,CreateTableForm
 ph = passHelper()
 DB = DBhelper()
-BH = BitlyHelper()
 app = Flask(__name__)
 app.secret_key = 'cMlCVgyfbFYllvKDM5QzBc5en09yydjez+FcA3m55o02GeKZGWY3c6/z6AdBZHMUd7QErw2lKgUv2SXNk2Y2WM6156lmwCcYijs'
 login_manager = LoginManager(app)
@@ -79,7 +77,6 @@ def new_request(tid):
 def dashboard():
     now = datetime.datetime.now()
     requests = DB.get_requests(current_user.get_id())
-    print(requests)
     for req in requests:
         deltaseconds = (now - req['time']).seconds
         req['wait_minutes'] = "{}.{}".format((deltaseconds/60),str(deltaseconds % 60).zfill(2))
